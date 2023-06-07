@@ -12,14 +12,14 @@ export const Company = () => {
                 console.log(data);
                 const fetchingData = data.map((data, index) => (
                     <div className={s.wrapper}>
-                        <div>
+                        <div className={s.imageWrapper}>
                             <img src={data.logo} alt="logo"/>
                         </div>
-                        <div>
+                        <div className={s.titleWrapper}>
                             <div key={data.id}>{data.company_name}</div>
                             <div>{data.company_tin}</div>
                         </div>
-                        <div>
+                        <div className={s.buttonsWrapper}>
                             <button>edit</button>
                             <button>delete</button>
                         </div>
