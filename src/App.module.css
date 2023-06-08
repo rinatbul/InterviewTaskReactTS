@@ -1,5 +1,10 @@
-.wrapper{
-    display: grid;
-    grid-template-columns: repeat(2, 500px);
-    background-color: aqua;
+*{
+    box-sizing: border-box;
+    font-family: Arial;
+
+}
+
+header{
+    text-align: center;
+    font-size: 18px;
 }

@@ -1,5 +1,8 @@
 import s from './Company.module.css'
 import {useEffect, useState} from "react";
+import noLogo from '../../assets/noLogo.png'
+import editButton from '../../assets/edit.svg'
+import deleteButton from '../../assets/delete.svg'
 
 
 export const Company = () => {
@@ -10,26 +13,28 @@ export const Company = () => {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                const fetchingData = data.map((data, index) => (
+                const fetchingData = data.map((data) => (
                     <div className={s.wrapper}>
                         <div className={s.imageWrapper}>
-                            <img src={data.logo} alt="logo"/>
+                            <img src={data.logo ? data.logo : noLogo} alt="logo"/>
                         </div>
                         <div className={s.titleWrapper}>
                             <div key={data.id}>{data.company_name}</div>
                             <div>{data.company_tin}</div>
                         </div>
                         <div className={s.buttonsWrapper}>
-                            <button>edit</button>
-                            <button>delete</button>
+                            <img onClick={() => console.log('hello')} src={editButton} alt="editButton"/>
+                            <img onClick={() => console.log('hello')} src={deleteButton} alt="deleteButton"/>
                         </div>
-
                     </div>
                 ));
                 setCompanies(fetchingData);
             });
     }, []);
 
-    return <div>{companies}</div>;
-
-    }
+    return (
+        <div className={s.mainWrapper}>
+            {companies}
+        </div>
+    )
+}
