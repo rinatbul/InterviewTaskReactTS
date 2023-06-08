@@ -8,7 +8,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    transform: scale(0);
 }
+
 
 .content{
     padding: 20px;
