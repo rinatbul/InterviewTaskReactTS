@@ -10,7 +10,6 @@ export const Modal = (props: any) => {
                     <button>Сохранить</button>
                 </div>
             </div>
-            {/*createPortal(props.children, document.body)*/}
         </div>
 
 
