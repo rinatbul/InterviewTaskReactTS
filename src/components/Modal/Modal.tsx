@@ -1,6 +1,11 @@
 import s from './Modal.module.css'
 
-export const Modal = (props: any) => {
+type ModalPropsType={
+    open:boolean
+    onClose:()=>void
+}
+
+export const Modal = (props: ModalPropsType) => {
     if (!props.open) return null
     return (
         <div onClick={props.onClose}>
