@@ -1,5 +1,4 @@
 import s from './Modal.module.css'
-import {createPortal} from "react-dom";
 
 export const Modal = (props: any) => {
     if (!props.open) return null
