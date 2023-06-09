@@ -1,6 +1,5 @@
 import s from './App.module.css'
 import {Company} from "./components/Company/Company";
-import {Modal} from "./components/Modal/Modal";
 
 //portal for modal
 

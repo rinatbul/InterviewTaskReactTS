@@ -1,15 +1,18 @@
 import s from './Modal.module.css'
 import {createPortal} from "react-dom";
 
-// type PropsType={
-//     active: boolean
-//     setActive:()=>void
-//     onChanged:()=>void
-// }
-
-
-export const Modal=(props: any)=>{
+export const Modal = (props: any) => {
+    if (!props.open) return null
     return (
-        createPortal(props.children, document.body)
+        <div onClick={props.onClose}>
+            <div className={s.wrapper}>
+                <div className={s.content}>
+                    <button>Сохранить</button>
+                </div>
+            </div>
+            {/*createPortal(props.children, document.body)*/}
+        </div>
+
+
     )
 }

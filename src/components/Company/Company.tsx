@@ -4,11 +4,10 @@ import noLogo from '../../assets/noLogo.png'
 import editButton from '../../assets/edit.svg'
 import deleteButton from '../../assets/delete.svg'
 import {Modal} from "../Modal/Modal";
-import { createPortal} from "react-dom";
 
 export const Company = () => {
     const [companies, setCompanies] = useState([]);
-    const [active, setActive] = useState(false)
+    const [isOpen, setIsOpen] = useState(false)
 
     useEffect(() => {
         fetch('https://raw.githubusercontent.com/arkdich/mybuh-frontend-test/main/companies.json')
@@ -25,7 +24,7 @@ export const Company = () => {
                             <div>{data.company_tin}</div>
                         </div>
                         <div className={s.buttonsWrapper}>
-                            <img onClick={() => setActive(true)} src={editButton} alt="editButton"/>
+                            <img onClick={() => setIsOpen(true)} src={editButton} alt="editButton"/>
                             <img onClick={() => console.log('hello')} src={deleteButton} alt="deleteButton"/>
                         </div>
                     </div>
@@ -39,7 +38,7 @@ export const Company = () => {
             <div className={s.mainWrapper}>
                 {companies}
             </div>
-            {active && <Modal>jfdksajfdksljfsdklfjdsakfjdsklf</Modal>}
+            {isOpen && <Modal open={isOpen} onClose={()=>setIsOpen(false)}>Hello im modal</Modal>}
 
         </>
 

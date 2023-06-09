@@ -12,7 +12,7 @@
     /*background-color: #c9c9c9;*/
     width: 578px;
     height: 120px;
-    margin: 1em;
+    margin: .1em;
     /*border: 1px solid black;*/
     box-shadow: rgba(105, 105, 105, 0.24) 0px 3px 8px;
     border-radius: .6em;
@@ -25,7 +25,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /*border: 1px solid black;*/
+    /*border: 1px dotted black;*/
     width: 20%;
 }
 
