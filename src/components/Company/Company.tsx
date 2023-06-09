@@ -5,8 +5,15 @@ import editButton from '../../assets/edit.svg'
 import deleteButton from '../../assets/delete.svg'
 import {Modal} from "../Modal/Modal";
 
+interface CompanyData {
+    id: number;
+    company_name: string;
+    company_tin: string;
+    logo?: string;
+}
+
 export const Company = () => {
-    const [companies, setCompanies] = useState([]);
+    const [companies, setCompanies] = useState<CompanyData[]>([]);
     const [isOpen, setIsOpen] = useState(false)
 
     useEffect(() => {
