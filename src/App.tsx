@@ -6,11 +6,13 @@ import {Company} from "./components/Company/Company";
 //useReducer
 
 //api.ts
+
+
+
 function App() {
 
     return (
         <div className={s}>
-            <header>Мои организации</header>
             <Company/>
         </div>
 
