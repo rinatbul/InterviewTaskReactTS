@@ -11,30 +11,35 @@ type CompanyType = {
     company_tin: string
     ownership: OwnershipType | null
     logo: string | null
-
 }
 
 type OwnershipType = {
     id: string
-    short_name:string
+    short_name: string
 }
 
-type StateType= {
+type StateType = {
     companies: CompanyType[]
+    modalIsOpen: boolean
 }
 
 
-type ActionType = { type: 'SET_COMPANIES',payload: CompanyType[] }
+type ActionType =
+    | { type: 'SET_COMPANIES', payload: CompanyType[] }
+    | { type: 'TOGGLE_MODAL', payload: boolean}
 
 
-const initialState:any = {
+const initialState: any = {
     companies: [],
+    modalIsOpen: false,
 };
 
-const reducer = (state: StateType, action: ActionType):StateType => {
-    switch (action.type){
+const reducer = (state: StateType, action: ActionType): StateType => {
+    switch (action.type) {
         case 'SET_COMPANIES':
-            return {...state, companies:action.payload};
+            return {...state, companies: action.payload};
+        case 'TOGGLE_MODAL':
+            return {...state, modalIsOpen: action.payload}
         default:
             return state
     }
@@ -47,7 +52,7 @@ export const Company = () => {
     useEffect(() => {
         fetch('https://raw.githubusercontent.com/arkdich/mybuh-frontend-test/main/companies.json')
             .then(response => response.json())
-            .then((data:CompanyType[]) => dispatch({type:'SET_COMPANIES', payload: data }));
+            .then((data: CompanyType[]) => dispatch({type: 'SET_COMPANIES', payload: data}));
     }, []);
 
     return (
@@ -55,7 +60,7 @@ export const Company = () => {
             <h1>Мои организации</h1>
             <div className={s.mainWrapper}>
                 {
-                    state.companies.map((company)=>{
+                    state.companies.map((company) => {
                         console.log(company)
                         return <div className={s.wrapper}>
                             <div className={s.imageWrapper}>
@@ -66,7 +71,7 @@ export const Company = () => {
                                 <div>{company.company_tin}</div>
                             </div>
                             <div className={s.buttonsWrapper}>
-                                <img src={editButton} alt="editButton"/>
+                                <img src={editButton} onClick={()=>dispatch({type:'TOGGLE_MODAL', payload: true})} alt="editButton"/>
                                 <img src={deleteButton} alt="deleteButton"/>
                             </div>
                         </div>
@@ -75,7 +80,8 @@ export const Company = () => {
             </div>
 
 
-            {/*{isOpen && <Modal open={isOpen} onClose={()=>setIsOpen(false)}>Hello im modal</Modal>}*/}
+            {state.modalIsOpen &&
+                <Modal open={state.modalIsOpen} onClose={() =>dispatch({type:'TOGGLE_MODAL', payload: false})}>Hello im modal</Modal>}
 
         </>
 
