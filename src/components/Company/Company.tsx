@@ -1,5 +1,5 @@
 import s from './Company.module.css'
-import {useEffect, useReducer, useState} from "react";
+import {useEffect, useReducer} from "react";
 import noLogo from '../../assets/noLogo.png'
 import editButton from '../../assets/edit.svg'
 import deleteButton from '../../assets/delete.svg'
@@ -20,17 +20,20 @@ type OwnershipType = {
 
 type StateType = {
     companies: CompanyType[]
+    ownerships: OwnershipType[]
     modalIsOpen: boolean
 }
 
 
 type ActionType =
     | { type: 'SET_COMPANIES', payload: CompanyType[] }
-    | { type: 'TOGGLE_MODAL', payload: boolean}
+    | { type: 'SET_OWNERSHIPS', payload: OwnershipType[] }
+    | { type: 'TOGGLE_MODAL', payload: boolean }
 
 
 const initialState: any = {
     companies: [],
+    ownerships: [],
     modalIsOpen: false,
 };
 
@@ -38,6 +41,8 @@ const reducer = (state: StateType, action: ActionType): StateType => {
     switch (action.type) {
         case 'SET_COMPANIES':
             return {...state, companies: action.payload};
+        case 'SET_OWNERSHIPS':
+            return {...state, ownerships: action.payload}
         case 'TOGGLE_MODAL':
             return {...state, modalIsOpen: action.payload}
         default:
@@ -53,6 +58,9 @@ export const Company = () => {
         fetch('https://raw.githubusercontent.com/arkdich/mybuh-frontend-test/main/companies.json')
             .then(response => response.json())
             .then((data: CompanyType[]) => dispatch({type: 'SET_COMPANIES', payload: data}));
+        fetch('https://raw.githubusercontent.com/arkdich/mybuh-frontend-test/main/ownerships.json')
+            .then(response => response.json())
+            .then((data: OwnershipType[]) => dispatch({type: 'SET_OWNERSHIPS', payload: data}));
     }, []);
 
     return (
@@ -61,7 +69,6 @@ export const Company = () => {
             <div className={s.mainWrapper}>
                 {
                     state.companies.map((company) => {
-                        console.log(company)
                         return <div className={s.wrapper}>
                             <div className={s.imageWrapper}>
                                 <img src={company.logo ? company.logo : noLogo} alt="logo"/>
@@ -71,7 +78,8 @@ export const Company = () => {
                                 <div>{company.company_tin}</div>
                             </div>
                             <div className={s.buttonsWrapper}>
-                                <img src={editButton} onClick={()=>dispatch({type:'TOGGLE_MODAL', payload: true})} alt="editButton"/>
+                                <img src={editButton} onClick={() => dispatch({type: 'TOGGLE_MODAL', payload: true})}
+                                     alt="editButton"/>
                                 <img src={deleteButton} alt="deleteButton"/>
                             </div>
                         </div>
@@ -81,7 +89,8 @@ export const Company = () => {
 
 
             {state.modalIsOpen &&
-                <Modal open={state.modalIsOpen} onClose={() =>dispatch({type:'TOGGLE_MODAL', payload: false})}>Hello im modal</Modal>}
+                <Modal open={state.modalIsOpen} onClose={() => dispatch({type: 'TOGGLE_MODAL', payload: false})}>Hello
+                    im modal</Modal>}
 
         </>
 

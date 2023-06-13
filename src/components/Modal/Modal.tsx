@@ -11,6 +11,9 @@ export const Modal = (props: ModalPropsType) => {
         <div onClick={props.onClose}>
             <div className={s.wrapper}>
                 <div className={s.content}>
+                    {
+                        state.ownerships.map()
+                    }
                     <button>Сохранить</button>
                 </div>
             </div>
