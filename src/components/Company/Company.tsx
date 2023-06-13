@@ -89,7 +89,7 @@ export const Company = () => {
 
 
             {state.modalIsOpen &&
-                <Modal open={state.modalIsOpen} onClose={() => dispatch({type: 'TOGGLE_MODAL', payload: false})}>Hello
+                <Modal open={state.modalIsOpen} onClose={() => dispatch({type: 'TOGGLE_MODAL', payload: true})}>Hello
                     im modal</Modal>}
 
         </>
