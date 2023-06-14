@@ -18,16 +18,28 @@ export const Modal = (props: ModalPropsType) => {
                         <button>ИП</button>
                         <button>Прочие</button>
                     </div>
-                    <div className={s.binInput}>
-                        <input type="text"/>
+                    <div className={s.inputBox}>
+                        <Input/>
+                        <Input/>
                     </div>
                     <div>
-                        <input type="text"/>
+                        <button className={s.saveButton}>Сохранить</button>
                     </div>
                 </div>
             </div>
         </div>
 
 
+    )
+}
+
+export const Input=()=>{
+    return (
+        <div className={s.input}>
+            <form action="">
+                <label htmlFor="fio">ИИН/БИН</label><br/>
+                <input type="text" name="fio"/>
+            </form>
+        </div>
     )
 }
