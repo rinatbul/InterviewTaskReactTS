@@ -18,9 +18,10 @@ type OwnershipType = {
     short_name: string
 }
 
-type StateType = {
+export type StateType = {
     companies: CompanyType[]
     ownerships: OwnershipType[]
+    editingCompanyId: string;
     modalIsOpen: boolean
 }
 
@@ -29,11 +30,13 @@ type ActionType =
     | { type: 'SET_COMPANIES', payload: CompanyType[] }
     | { type: 'SET_OWNERSHIPS', payload: OwnershipType[] }
     | { type: 'TOGGLE_MODAL', payload: boolean }
+    | { type: 'SET_EDITING_COMPANY_ID', payload: string }
 
 
 const initialState: any = {
     companies: [],
     ownerships: [],
+    editingCompanyId: '',
     modalIsOpen: false,
 };
 
@@ -43,6 +46,8 @@ const reducer = (state: StateType, action: ActionType): StateType => {
             return {...state, companies: action.payload};
         case 'SET_OWNERSHIPS':
             return {...state, ownerships: action.payload}
+        case '':
+            return {...state, }
         case 'TOGGLE_MODAL':
             return {...state, modalIsOpen: action.payload}
         default:
@@ -63,6 +68,11 @@ export const Company = () => {
             .then((data: OwnershipType[]) => dispatch({type: 'SET_OWNERSHIPS', payload: data}));
     }, []);
 
+    const editCompanyHandler = (companyId: string) => {
+        const company = state.companies.find(c => c.company_id == companyId);
+        company ? dispatch({type: 'SET_EDITING_COMPANY_ID', payload: companyId}):null
+    }
+
     return (
         <>
             <h1>Мои организации</h1>
@@ -74,13 +84,18 @@ export const Company = () => {
                                 <img src={company.logo ? company.logo : noLogo} alt="logo"/>
                             </div>
                             <div className={s.titleWrapper}>
-                                <div key={company.company_id}>{company.company_name}</div>
+                                <div>{company.company_name}</div>
                                 <div>{company.company_tin}</div>
                             </div>
                             <div className={s.buttonsWrapper}>
-                                <img src={editButton} onClick={() => dispatch({type: 'TOGGLE_MODAL', payload: true})}
+                                <img onClick={() => dispatch({type: 'TOGGLE_MODAL', payload: true})}
+                                     src={editButton}
                                      alt="editButton"/>
-                                <img src={deleteButton} alt="deleteButton"/>
+                                <img onClick={() => {
+                                    console.log(company.company_id)
+                                }}
+                                     src={deleteButton}
+                                     alt="deleteButton"/>
                             </div>
                         </div>
                     })
@@ -89,7 +104,8 @@ export const Company = () => {
 
 
             {state.modalIsOpen &&
-                <Modal open={state.modalIsOpen}
+                <Modal state={state}
+                       open={state.modalIsOpen}
                        onClose={() => dispatch({type: 'TOGGLE_MODAL', payload: true})}
                 />
             }

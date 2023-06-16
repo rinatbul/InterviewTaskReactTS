@@ -1,9 +1,11 @@
 import s from './Modal.module.css'
+import {StateType} from "../Company/Company";
 
 type ModalPropsType={
     open:boolean
     onClose:()=>void
     children: string
+    state: StateType
 }
 
 export const Modal = (props: ModalPropsType) => {
@@ -14,7 +16,7 @@ export const Modal = (props: ModalPropsType) => {
                 <div className={s.content}>
                     <h1 className={s.title}>Редактировать данные организации</h1>
                     <div className={s.shortNameButtons}>
-                        <button>ТОО</button>
+                        <button onClick={()=>{console.log(props.state.ownerships.filter((owner)=>{}))}}>ТОО</button>
                         <button>ИП</button>
                         <button>Прочие</button>
                     </div>
